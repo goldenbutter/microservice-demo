@@ -215,8 +215,6 @@ Pull requests welcome!
 
 ---
 
----
-
 ## 🚀 Author
 Created by **Bithun Chatterjee**  
 GitHub: https://github.com/goldenbutter  

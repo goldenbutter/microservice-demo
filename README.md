@@ -146,8 +146,8 @@ Backend → http://localhost:8000/docs
 
 ### Build Docker images inside minikube:
 ```
-minikube start
-eval $(minikube docker-env)
+minikube start --driver=docker
+minikube -p minikube docker-env | Invoke-Expression
 
 docker build -t backend:latest ./backend
 docker build -t frontend:latest ./frontend
@@ -164,7 +164,7 @@ minikube addons enable ingress
 minikube tunnel
 ```
 
-### Add to your hosts file:
+### Add to your Local-hosts file:
 ```
 127.0.0.1 microservice.local
 ```
@@ -190,12 +190,15 @@ http://microservice.local
 
 - **Docker containers running**
 
-<img width="500" height="750" alt="Backend-port-5500" src="assets\frontend-docker-SINGLE-port-8000.png" />
+<img width="500" height="750" alt="Frontend-SINGLE-port-8000" src="assets\frontend-docker-SINGLE-port-8000.png" />
 
-<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-docker-SINGLE-port-8000.png" />
+<img width="1500" height="1050" alt="Backend-SINGLE-port-8000" src="assets\backend-docker-SINGLE-port-8000.png" />
 
 - **Kubernetes dashboard**
 
+<img width="500" height="750" alt="Kubernetes Test for Frontend" src="assets\k8s-frontend.png" />
+
+<img width="500" height="750" alt="Kubernetes Test for Backend" src="assets\k8s-backend.png" />
 
 ---
 

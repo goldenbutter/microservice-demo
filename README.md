@@ -172,6 +172,7 @@ minikube tunnel
 Visit:
 ```
 http://microservice.local
+
 ```
 
 ---
@@ -180,25 +181,25 @@ http://microservice.local
 
 - **Frontend UI**
 
-<img width="500" height="750" alt="Frontend-port-5500" src="assets\frontend-5500-port-CORS.png" />
+<img width="700" height="750" alt="Frontend-port-5500" src="assets\frontend-5500-port-CORS.png" />
 
 - **Swagger UI**
 
-<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-8000-port-CORS.png" />
+<img width="1700" height="1050" alt="Backend-port-5500" src="assets\backend-8000-port-CORS.png" />
 
-<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-test.png" />
+<img width="1700" height="1050" alt="Backend-port-5500" src="assets\backend-test.png" />
 
 - **Docker containers running**
 
-<img width="500" height="750" alt="Frontend-SINGLE-port-8000" src="assets\frontend-docker-SINGLE-port-8000.png" />
+<img width="800" height="550" alt="Frontend-SINGLE-port-8000" src="assets\frontend-docker-SINGLE-port-8000.png" />
 
-<img width="1500" height="1050" alt="Backend-SINGLE-port-8000" src="assets\backend-docker-SINGLE-port-8000.png" />
+<img width="1700" height="1050" alt="Backend-SINGLE-port-8000" src="assets\backend-docker-SINGLE-port-8000.png" />
 
 - **Kubernetes dashboard**
 
-<img width="500" height="750" alt="Kubernetes Test for Frontend" src="assets\k8s-frontend.png" />
+<img width="811" height="532" alt="Kubernetes Test for Frontend" src="assets\k8s-frontend.png" />
 
-<img width="500" height="750" alt="Kubernetes Test for Backend" src="assets\k8s-backend.png" />
+<img width="416" height="286" alt="Kubernetes Test for Backend" src="assets\k8s-backend.png" />
 
 ---
 
@@ -213,10 +214,6 @@ Feel free to:
 Pull requests welcome!
 
 ---
-
-# 📜 License
-
-MIT License.
 
 ---
 

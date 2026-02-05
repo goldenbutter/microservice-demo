@@ -184,15 +184,15 @@ http://microservice.local
 
 - **Swagger UI**
 
-<img width="500" height="750" alt="Backend-port-5500" src="assets\backend-8000-port-CORS.png" />
+<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-8000-port-CORS.png" />
 
-<img width="500" height="750" alt="Backend-port-5500" src="assets\backend-test.png" />
+<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-test.png" />
 
 - **Docker containers running**
 
 <img width="500" height="750" alt="Backend-port-5500" src="assets\frontend-docker-SINGLE-port-8000.png" />
 
-<img width="500" height="750" alt="Backend-port-5500" src="assets\backend-docker-SINGLE-port-8000.png" />
+<img width="1500" height="1050" alt="Backend-port-5500" src="assets\backend-docker-SINGLE-port-8000.png" />
 
 - **Kubernetes dashboard**
 

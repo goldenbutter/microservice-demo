@@ -1,5 +1,13 @@
 // Backend API base URL
-const API_URL = "http://127.0.0.1:8000";
+//const API_URL = "http://127.0.0.1:8000";
+//const API_URL = "http://backend:8000";
+
+// use localhost for development, and backend for Docker
+//const API_URL = "http://localhost:8000";
+
+// use microservice.local for production deployment with minikube / ingress
+//const API_URL = "http://microservice.local"
+const API_URL = "/api";
 
 // Fetch and display all items
 async function loadItems() {

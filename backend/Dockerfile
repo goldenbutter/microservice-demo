@@ -17,6 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the backend application code
 COPY app ./app
 
+# Create a data directory for SQLite and ensure it's writable
+RUN mkdir -p /app/data && chmod 777 /app/data
+
 # Expose the backend port
 EXPOSE 8000
 

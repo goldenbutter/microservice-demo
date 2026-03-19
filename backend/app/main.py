@@ -1,75 +1,61 @@
-# ---------------------------------------------------------
-# main.py — FastAPI entry point for the Microservice Demo
-# ---------------------------------------------------------
-# This file:
-# - Creates the FastAPI application
-# - Enables CORS (so frontend can talk to backend)
-# - Defines all API routes (endpoints)
-# - Connects routes to CRUD logic and Pydantic schemas
-# ---------------------------------------------------------
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
 from typing import List
 
-# Import Pydantic models for validating input/output
-from .schemas import Item, ItemCreate
-
-# Import CRUD operations (business logic)
-from . import crud
+# Import models, database, and schemas
+from . import models, crud, schemas
+from .database import SessionLocal, engine
 
 # Import CORS middleware so the browser can access the API
 from fastapi.middleware.cors import CORSMiddleware
 
+# Create the database tables on startup
+# This handles the schema creation for us automatically
+models.Base.metadata.create_all(bind=engine)
 
-# ---------------------------------------------------------
 # Create the FastAPI app instance
-# ---------------------------------------------------------
 app = FastAPI(
-    title="Microservice Demo API",
-    description="A simple FastAPI backend for learning Docker & Kubernetes.",
-    version="1.0.0"
+    title="Microservice Demo API (SQLite)",
+    description="FastAPI backend with SQLite persistence for Docker & Kubernetes.",
+    version="2.0.0"
 )
 
-# ---------------------------------------------------------
-# Enable CORS so frontend (port 5500) can call backend (port 8000)
-# ---------------------------------------------------------
-# Without this, the browser blocks your fetch() calls
+# Enable CORS (allowing all for simplicity in this demo)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # Allow all origins (OK for learning)
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],      # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],      # Allow all request headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
+# Dependency to get a database session for each request
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-# ---------------------------------------------------------
-# Root endpoint — simple welcome message
-# ---------------------------------------------------------
+# Root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Microservice Demo API!"}
+    return {"message": "Welcome to the Persistent Microservice Demo API!"}
 
-
-# ---------------------------------------------------------
 # GET /items — returns all items
-# ---------------------------------------------------------
-@app.get("/items", response_model=List[Item])
-def get_items():
-    return crud.get_all_items()   # Calls logic from crud.py
+@app.get("/items", response_model=List[schemas.Item])
+def get_items(db: Session = Depends(get_db)):
+    return crud.get_all_items(db)
 
-
-# ---------------------------------------------------------
 # POST /items — create a new item
-# ---------------------------------------------------------
-@app.post("/items", response_model=Item)
-def create_item(item: ItemCreate):
-    return crud.create_item(item)
+@app.post("/items", response_model=schemas.Item)
+def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
+    return crud.create_item(db, item)
 
-
-# ---------------------------------------------------------
 # GET /items/{item_id} — return a single item
-# ---------------------------------------------------------
-@app.get("/items/{item_id}", response_model=Item)
-def get_item(item_id: int):
-    return crud.get_item(item_id)
+@app.get("/items/{item_id}", response_model=schemas.Item)
+def get_item(item_id: int, db: Session = Depends(get_db)):
+    db_item = crud.get_item(db, item_id)
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return db_item

@@ -18,3 +18,10 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/data
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: backend-sqlite-pvc

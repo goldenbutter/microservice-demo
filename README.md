@@ -21,15 +21,19 @@ Browser (Frontend)
      |
      |  HTTP (JavaScript fetch)
      v
-Frontend (NGINX container)
+Frontend (NGINX container) -- :80
      |
-     |  HTTP
+     |  HTTP (/api proxy)
      v
-Backend (FastAPI container)
+Backend (FastAPI container) -- :8000
      |
-     |  In-memory list
+     |  SQLAlchemy ORM
      v
-Fake Database
+SQLite Database (/app/data/app.db)
+     |
+     |  Persistent Volume
+     v
+Disk Storage
 ```
 
 ---
@@ -39,8 +43,10 @@ Fake Database
 ```mermaid
 flowchart LR
     A[User Browser] --> B[Frontend - NGINX]
-    B -->|HTTP /items| C[Backend - FastAPI]
-    C --> D[(In-Memory Data Store)]
+    B -->|HTTP /api| C[Backend - FastAPI]
+    C --> D[SQLAlchemy ORM]
+    D --> E[(SQLite Database)]
+    E --> F[Persistent Volume]
 ```
 
 ---
@@ -81,23 +87,24 @@ microservice-demo/
 
 # 🛠 Tech Stack
 
-**Backend:** FastAPI, Python  
+**Backend:** FastAPI, Python, SQLAlchemy  
+**Database:** SQLite (Persistent)  
 **Frontend:** HTML, JavaScript, CSS  
 **Containers:** Docker, Docker Compose  
-**Orchestration:** Kubernetes (Deployments + Services + Ingress)  
-**Web Server:** NGINX (for frontend)  
+**Orchestration:** Kubernetes (Deployments + Services + Ingress + PVC)  
+**Web Server:** NGINX  
+**Testing:** Pytest + HTTPX  
 
 ---
 
 # ✨ Features
 
-- Create items  
-- List items  
-- Simple and clean UI  
-- Backend + Frontend containerized  
-- Docker Compose support  
-- Kubernetes deployment manifests  
-- Easy to extend with CI/CD or real databases  
+- **Persistence:** Items are stored in a SQLite database via SQLAlchemy.  
+- **Volume Mounting:** Data survives container and Pod restarts.  
+- **Automated Testing:** Full backend test suite with in-memory SQLite isolation.  
+- **API Documentation:** Interactive Swagger UI at `/docs`.  
+- **Ingress Routing:** Clean URL mapping via `microservice.local`.  
+- **Containerized:** Full Docker and Kubernetes support.  
 
 ---
 

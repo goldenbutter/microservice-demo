@@ -6,6 +6,8 @@ services:
     container_name: backend
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
     networks:
       - demo-net
 

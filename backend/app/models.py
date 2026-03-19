@@ -1,8 +1,10 @@
-# This file contains the data model for our in‑memory storage.
-# We keep it very simple to make the project easy to learn.
+from sqlalchemy import Column, Integer, String
+from .database import Base
 
-class ItemModel:
-    def __init__(self, id: int, name: str, description: str):
-        self.id = id
-        self.name = name
-        self.description = description
+# This is our SQLAlchemy model for our database table
+class ItemModel(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    description = Column(String)
